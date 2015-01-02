@@ -9,6 +9,7 @@ var once = require('once')
 var portfinder = require('portfinder')
 var speedometer = require('speedometer')
 var thunky = require('thunky')
+var dezalgo = require('dezalgo');
 var Wire = require('bittorrent-protocol')
 
 // Use random port above 1024
@@ -400,7 +401,8 @@ Swarm.prototype.listen = function (port, onlistening) {
     port = undefined
   }
   if (this.listening) throw new Error('swarm already listening')
-  if (onlistening) this.once('listening', onlistening)
+  if (onlistening) this.once('listening', dezalgo(onlistening))
+
   debug('listen %s', port)
 
   var onPort = function (err, port) {
